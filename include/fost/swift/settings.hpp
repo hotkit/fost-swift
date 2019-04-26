@@ -17,6 +17,20 @@ extern "C" {
 #endif
 
 
+/**
+    ## Settings managment
+ */
+
+/**
+    Add a string setting.
+ */
+void set_string_setting(
+        char const *domain,
+        char const *section,
+        char const *name,
+        char const *value);
+
+
 #ifdef __cplusplus
 }
 #endif
