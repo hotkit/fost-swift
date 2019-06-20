@@ -43,3 +43,13 @@ extern "C" void set_json_setting(char const *domain, char const *section, char c
     auto const v{fostlib::json::parse(jv)};
     g_settings()[s][n] = std::make_unique<fostlib::setting<fostlib::json>>(d, s, n, v);
 }
+
+
+extern "C" NSString * _Nonnull read_setting(char const *section, char const *name, char const *default_) {
+    auto current = fostlib::setting<fostlib::json>::value(section, name, fostlib::null);
+    if (current) {
+        return [NSString stringWithUTF8String:fostlib::json::unparse(current.value(), true).shrink_to_fit()];
+    } else {
+        return [NSString stringWithUTF8String:default_];
+    }
+}

@@ -8,8 +8,11 @@
 
 #pragma once
 
-#ifndef settings_hpp
-#define settings_hpp
+#ifndef fost_swift_settings_hpp
+#define fost_swift_settings_hpp
+
+
+#import <Foundation/Foundation.h>
 
 
 #ifdef __cplusplus
@@ -18,7 +21,7 @@ extern "C" {
 
 
 /**
-    ## Settings managment
+    ## Settings management
  */
 
 /**
@@ -47,6 +50,17 @@ void set_json_setting(
         char const *section,
         char const *name,
         char const *json_value);
+
+
+/**
+    Read a setting. Returns a JSON string, or the specified default if the setting
+    doesn't exist.
+ */
+
+NSString * _Nonnull read_setting(
+    char const *section,
+    char const *name,
+    char const *default_);
 
 
 #ifdef __cplusplus
