@@ -17,6 +17,16 @@ extern "C" {
 #endif
 
 
+/**
+ * Starts the web server. The configuration works exactly like the
+ * `fost-webserver`. Everything must be configured into the settings
+ * database so that the server knows what to do.
+ *
+ * The port number is fixed and hard coded as 2555.
+ */
+void webserver_start();
+
+
 #ifdef __cplusplus
 }
 #endif

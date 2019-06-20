@@ -6,6 +6,6 @@ add_library(fost-swift
         src/settings.mm
         src/webserver.mm
     )
-target_link_libraries(fost-swift fost-core)
+target_link_libraries(fost-swift fost-urlhandler)
 target_include_directories(fost-swift PUBLIC include)
 
