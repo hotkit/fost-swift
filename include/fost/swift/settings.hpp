@@ -28,28 +28,28 @@ extern "C" {
     Add an integer setting. This should be a 64 bit int, but Macs....
  */
 void set_int_setting(
-        char const *domain,
-        char const *section,
-        char const *name,
+        char const * _Nonnull domain,
+        char const * _Nonnull section,
+        char const * _Nonnull name,
         int value);
 
 /**
     Add a string setting.
  */
 void set_string_setting(
-        char const *domain,
-        char const *section,
-        char const *name,
-        char const *value);
+        char const * _Nonnull domain,
+        char const * _Nonnull section,
+        char const * _Nonnull name,
+        char const * _Nonnull value);
 
 /**
     Add a JSON setting. The value will be parsed as JSON and then set.
  */
 void set_json_setting(
-        char const *domain,
-        char const *section,
-        char const *name,
-        char const *json_value);
+        char const * _Nonnull domain,
+        char const * _Nonnull section,
+        char const * _Nonnull name,
+        char const * _Nonnull json_value);
 
 
 /**
@@ -58,9 +58,9 @@ void set_json_setting(
  */
 
 NSString * _Nonnull read_setting(
-    char const *section,
-    char const *name,
-    char const *default_);
+    char const * _Nonnull section,
+    char const * _Nonnull name,
+    char const * _Nonnull default_);
 
 
 #ifdef __cplusplus
