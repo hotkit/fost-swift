@@ -12,6 +12,9 @@
 #define fost_swift_webserver_hpp
 
 
+#import <Foundation/Foundation.h>
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -25,6 +28,20 @@ extern "C" {
  * The port number is fixed and hard coded as 2555.
  */
 void webserver_start();
+
+
+/**
+ * This is used to register the callback for returning data that has been
+ * bundled with the application. It should be set on program start, and
+ * must be called before the web server is started with a configuration
+ * that makes use of the view.
+ *
+ * The callback is called with a string that represents the filename to be
+ * loaded. The returned NSData may be `NULL` if the file does not exist
+ * or otherwise cannot be loaded.
+ */
+typedef NSData*(*file_loader_callback)(char const *);
+void register_file_loader(file_loader_callback);
 
 
 #ifdef __cplusplus

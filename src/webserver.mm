@@ -14,6 +14,8 @@
 
 namespace {
     std::thread g_server;
+
+    file_loader_callback file_loader;
 }
 
 
@@ -25,4 +27,9 @@ extern "C" void webserver_start() {
             return false;
         });
     }};
+}
+
+
+extern "C" void register_file_loader(file_loader_callback fp) {
+    file_loader = fp;
 }
