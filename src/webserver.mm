@@ -40,9 +40,19 @@ namespace {
 
     /**
      * Returns data using the callback, or an empty buffer if not found.
-      */
-    f5::shared_buffer<unsigned char> assetdata(const fostlib::string path) {
-        return f5::shared_buffer<unsigned char>();
+     */
+    auto assetdata(fostlib::string path) {
+        /// TODO Change to unique with the freeing function later on
+        NSData *file_bytes = file_loader(path.shrink_to_fit());
+        if(file_bytes) {
+            std::size_t const length = [file_bytes length];
+            unsigned char const *data = reinterpret_cast<unsigned char const *>([file_bytes bytes]);
+            f5::shared_buffer<unsigned char> buffer{length};
+            std::copy(data, data + length, buffer.begin());
+            return buffer;
+        } else {
+            return f5::shared_buffer<unsigned char>();
+        }
     }
 
 
