@@ -40,7 +40,7 @@ void webserver_start();
  * loaded. The returned NSData may be `NULL` if the file does not exist
  * or otherwise cannot be loaded.
  */
-typedef NSData*(*file_loader_callback)(char const *);
+typedef NSData*(*file_loader_callback)(NSString * _Nonnull);
 void register_file_loader(file_loader_callback);
 
 

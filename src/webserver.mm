@@ -43,7 +43,7 @@ namespace {
      */
     auto assetdata(fostlib::string path) {
         /// TODO Change to unique with the freeing function later on
-        NSData *file_bytes = file_loader(path.shrink_to_fit());
+        NSData *file_bytes = file_loader([NSString stringWithUTF8String:path.shrink_to_fit()]);
         if(file_bytes) {
             std::size_t const length = [file_bytes length];
             unsigned char const *data = reinterpret_cast<unsigned char const *>([file_bytes bytes]);
