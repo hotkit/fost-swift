@@ -104,7 +104,8 @@ namespace {
                 /// **TODO** This filename should be read from the configuration
                 path += "index.html";
             }
-            return assetresponse(assetdata(path), path);
+            std::pair<boost::shared_ptr<fostlib::mime>, int> asset = assetresponse(assetdata(path), path);
+            return asset;
         }
     } c_assets_view;
 

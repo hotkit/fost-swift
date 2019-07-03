@@ -51,6 +51,9 @@ void set_json_setting(
         char const * _Nonnull name,
         char const * _Nonnull json_value);
 
+    
+void set_settings_from_file(char const *domain, char const *file_content);
+    
 
 /**
     Read a setting. Returns a JSON string, or the specified default if the setting
