@@ -77,7 +77,7 @@ namespace {
                     boost::shared_ptr<fostlib::mime>(
                             new fostlib::text_body(
                                     "<html><head><title>404</title></head>"
-                                            "<body><h1>404</h1><pre>" + path + "</pre></body></html>")),
+                                                   "<body><h1>404</h1><pre>" + path + "</pre></body></html>", fostlib::mime::mime_headers(), "text/html")),
                     404);
         }
     }
