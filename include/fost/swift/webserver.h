@@ -28,6 +28,8 @@ extern "C" {
  * The port number is fixed and hard coded as 2555.
  */
 void webserver_start();
+    
+void webserver_stop();
 
 
 /**
