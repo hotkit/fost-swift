@@ -21,6 +21,7 @@ namespace {
 
 extern "C" void webserver_start() {
     /// Start the web server and set the termination condition
+    webserver_stop();
     g_server = std::thread{[]() {
         try {
             fostlib::http::server server(fostlib::host(0), 2555);
