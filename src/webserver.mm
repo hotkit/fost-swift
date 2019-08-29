@@ -14,19 +14,36 @@
 
 namespace {
     std::thread g_server;
-
+    fostlib::http::server *g_webserver = nullptr;
     file_loader_callback file_loader;
 }
 
 
 extern "C" void webserver_start() {
     /// Start the web server and set the termination condition
+    webserver_stop();
     g_server = std::thread{[]() {
-        fostlib::http::server server(fostlib::host(0), 2555);
-        server(fostlib::urlhandler::service, []() -> bool {
-            return false;
-        });
+        try {
+            fostlib::http::server server(fostlib::host(0), 2555);
+            g_webserver = &server;
+            server(fostlib::urlhandler::service, []() -> bool {
+                return false;
+            });
+        } catch (...) {
+            /// In case of any exception getting this far we just allow
+            /// the thread to quietly exit. Ideally we should log or
+            /// something at this point.
+        }
     }};
+}
+
+extern "C" void webserver_stop() {
+    //Stop webserver
+    if(g_webserver){
+        g_webserver->stop_server();
+        g_webserver = nullptr;
+        g_server.join();
+    };
 }
 
 
