@@ -16,6 +16,7 @@ namespace {
     std::thread g_server;
     fostlib::http::server *g_webserver = nullptr;
     file_loader_callback file_loader;
+    free_memory_callback free_memory;
 }
 
 
@@ -51,6 +52,10 @@ extern "C" void register_file_loader(file_loader_callback fp) {
     file_loader = fp;
 }
 
+extern "C" void register_free_memory(free_memory_callback fm) {
+    free_memory = fm;
+}
+
 
 namespace {
 
@@ -60,15 +65,19 @@ namespace {
      */
     auto assetdata(fostlib::string path) {
         /// TODO Change to unique with the freeing function later on
+//        auto xxx = file_loader([NSString stringWithUTF8String:path.shrink_to_fit()]);
+//        auto *yyy = &xxx;
+//
         NSData *file_bytes = file_loader([NSString stringWithUTF8String:path.shrink_to_fit()]);
+        
+        std::shared_ptr<NSData> bytes_ptr{file_bytes, [](NSData *p) { free_memory(p); }};
         if(file_bytes) {
             std::size_t const length = [file_bytes length];
-            unsigned char const *data = reinterpret_cast<unsigned char const *>([file_bytes bytes]);
-            f5::shared_buffer<unsigned char> buffer{length};
-            std::copy(data, data + length, buffer.begin());
+            std::shared_ptr<unsigned char const> data{bytes_ptr, reinterpret_cast<unsigned char const *>([file_bytes bytes])};
+            f5::shared_buffer<unsigned char const> buffer{data, length};
             return buffer;
         } else {
-            return f5::shared_buffer<unsigned char>();
+            return f5::shared_buffer<unsigned char const>();
         }
     }
 
@@ -77,7 +86,7 @@ namespace {
      * Returns the correct response for the provided data.
      */
     std::pair<boost::shared_ptr<fostlib::mime>, int> assetresponse(
-            f5::shared_buffer<unsigned char> bytes,
+            f5::shared_buffer<unsigned char const> bytes,
             const fostlib::string path
     ) {
         if ( bytes.data() ) {
