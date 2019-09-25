@@ -44,6 +44,9 @@ void webserver_stop();
  */
 typedef NSData*(*file_loader_callback)(NSString * _Nonnull);
 void register_file_loader(file_loader_callback);
+/* This function use to free the memory, it will delete data in dataDict that declare in swift */
+typedef void(*free_memory_callback)(NSData *);
+void register_free_memory(free_memory_callback);
 
 
 #ifdef __cplusplus
