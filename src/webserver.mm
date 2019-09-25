@@ -65,9 +65,7 @@ namespace {
      */
     auto assetdata(fostlib::string path) {
         /// TODO Change to unique with the freeing function later on
-//        auto xxx = file_loader([NSString stringWithUTF8String:path.shrink_to_fit()]);
-//        auto *yyy = &xxx;
-//
+
         NSData *file_bytes = file_loader([NSString stringWithUTF8String:path.shrink_to_fit()]);
         
         std::shared_ptr<NSData> bytes_ptr{file_bytes, [](NSData *p) { free_memory(p); }};
