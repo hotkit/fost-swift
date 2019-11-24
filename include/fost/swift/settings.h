@@ -52,7 +52,7 @@ void set_json_setting(
         char const * _Nonnull json_value);
 
     
-void set_settings_from_file(char const *domain, char const *file_content);
+void set_settings_from_file(char const * _Nonnull domain, char const * _Nonnull file_content);
     
 
 /**
