@@ -6,7 +6,7 @@
 */
 
 
-#include <fost/swift/settings.hpp>
+#include <fost/swift/settings.h>
 #include <fost/core>
 
 

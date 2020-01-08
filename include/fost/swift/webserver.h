@@ -42,11 +42,11 @@ void webserver_stop();
  * loaded. The returned NSData may be `NULL` if the file does not exist
  * or otherwise cannot be loaded.
  */
-typedef NSData*(*file_loader_callback)(NSString * _Nonnull);
-void register_file_loader(file_loader_callback);
+typedef NSData * _Nullable (*file_loader_callback)(NSString * _Nonnull);
+void register_file_loader(file_loader_callback _Nonnull);
 /* This function use to free the memory, it will delete data in dataDict that declare in swift */
-typedef void(*free_memory_callback)(NSData *);
-void register_free_memory(free_memory_callback);
+typedef void(*free_memory_callback)(NSData * _Nullable);
+void register_free_memory(free_memory_callback _Nonnull);
 
 
 #ifdef __cplusplus

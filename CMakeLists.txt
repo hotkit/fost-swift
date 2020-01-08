@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.12)
 
 add_library(fost-swift
         src/dirent.c
+        src/messaging.mm
         src/settings.mm
         src/webserver.mm
     )
